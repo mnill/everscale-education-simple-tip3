@@ -1,0 +1,14 @@
+{
+  "name": "simple-tip3-token",
+  "version": "1.0.0",
+  "dependencies": {
+    "@tonclient/appkit": "^0.2.0",
+    "@tonclient/core": "^1.27.1",
+    "@tonclient/lib-node": "^1.27.1"
+  },
+  "scripts": {
+    "build": "tondev sol compile TokenWalletDeployer.sol && tondev sol compile TokenRoot.sol && tondev sol compile TokenWallet.sol",
+    "wrapjs": "tondev js wrap TokenWalletDeployer.abi.json && tondev js wrap TokenRoot.abi.json && tondev js wrap TokenWallet.abi.json",
+    "test": "npm run build && npm run wrapjs && node test.js"
+  }
+}
