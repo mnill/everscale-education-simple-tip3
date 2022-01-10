@@ -2,13 +2,13 @@
   "name": "simple-tip3-token",
   "version": "1.0.0",
   "dependencies": {
-    "@tonclient/appkit": "^0.2.0",
-    "@tonclient/core": "^1.27.1",
-    "@tonclient/lib-node": "^1.27.1"
+    "@tonclient/appkit": "^0.3.0",
+    "@tonclient/core": "^1.28.0",
+    "@tonclient/lib-node": "^1.28.0"
   },
   "scripts": {
-    "build": "tondev sol compile TokenWalletDeployer.sol && tondev sol compile TokenRoot.sol && tondev sol compile TokenWallet.sol",
-    "wrapjs": "tondev js wrap TokenWalletDeployer.abi.json && tondev js wrap TokenRoot.abi.json && tondev js wrap TokenWallet.abi.json",
+    "build": "everdev sol compile -o ./artifacts contracts/ThirdParty.sol && everdev sol compile -o ./artifacts contracts/TokenRoot.sol && everdev sol compile -o ./artifacts contracts/TokenWallet.sol",
+    "wrapjs": "everdev js wrap artifacts/ThirdParty.abi.json && everdev js wrap artifacts/TokenRoot.abi.json && everdev js wrap artifacts/TokenWallet.abi.json",
     "test": "npm run build && npm run wrapjs && node test.js"
   }
 }
