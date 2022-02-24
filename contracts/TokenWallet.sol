@@ -23,7 +23,6 @@ library TokenWalletContractErrors {
 contract TokenWalletContract is ITokenWalletContract {
 
   address static root_address;
-  TvmCell static wallet_code;
   uint128 public balance;
 
   constructor() public {
@@ -82,11 +81,10 @@ contract TokenWalletContract is ITokenWalletContract {
     TvmCell stateInit = tvm.buildStateInit({
         contr: TokenWalletContract,
         varInit: {
-            root_address: root_address,
-            wallet_code: wallet_code
+            root_address: root_address
         },
         pubkey: _recipient_public_key,
-        code: wallet_code
+        code: tvm.code() // код такой же как и у нашего контракта
     });
 
     address to;
@@ -152,11 +150,10 @@ contract TokenWalletContract is ITokenWalletContract {
     TvmCell stateInit = tvm.buildStateInit({
         contr: TokenWalletContract,
         varInit: {
-            root_address: root_address,
-            wallet_code: wallet_code
+            root_address: root_address
         },
         pubkey: _wallet_public_key,
-        code: wallet_code
+        code: tvm.code()  // код такой же как и у нашего контракта,
     });
     return address(tvm.hash(stateInit));
   }

@@ -68,8 +68,7 @@ contract TokenRootContract is ITokenRootContract {
         contr: TokenWalletContract,
         varInit: {
             //значения static переменных
-            root_address: address(this),
-            wallet_code: wallet_code
+            root_address: address(this)
         },
         // pubkey - это то, что будет возвращать tvm.pubkey(). По сути это просто еще одна статик переменная,
         // просто вынесенная отдельно.
