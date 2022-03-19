@@ -24,8 +24,8 @@ contract ThirdPartyContract  {
     uint128 _send_evers,
     uint128 _deploy_evers
   ) external onlyOwner {
-    // Весь этот Third party контракт сделан для того, чтобы показать вам как вызывать responsible функцию.
-    // Тут должно быть все понятно, просто вызываем функцию и передаем callback - просто ID функции которую вызвать
+    // This entire Third party contract was done to show you how to call the responsible function.
+    // Everything is simple here, we just call the function and transfer callback - this is the ID function to call
     tvm.accept();
     ITokenRootContract(_root_contract).deployEmptyWallet{
         value: _send_evers,
@@ -36,29 +36,22 @@ contract ThirdPartyContract  {
   function onGetDeployed(
     address _address
   ) public {
-    // Колбек который вызываем Root в ответ на deployEmptyWallet.
-    // Тут нет никакой проверки встроенной под капотом, что эта функция и правда вызывается в ответ на ваш запрос.
-    // То есть вам нужно самому проверять что вы и правда делали этот запрос. Например записать адрес root
-    // с которым вы взаимодействовали и проверить что сообщение от него аля require(msg.sender == root_address)
+    // The callback we call Root in answer to deployEmptyWallet.
+    // There is no built-in check to make sure this function
+    // is truly being called in answer to your call.
 
-    // Колбек который вызываем Root в ответ на deployEmptyWallet.
-    // Тут нет никакой проверки встроенной под капотом, что эта функция
-    // и правда вызывается в ответ на ваш запрос.
-    // То есть вам нужно самому проверять что вы и правда делали этот запрос.
-    // Например записать адрес root с которым вы взаимодействовали
-    // и проверить что сообщение от него аля require(msg.sender == root_address)
+    // So you have to check is you really made this call.
+    // For example, by store the address of root that you are interacting with
+    // and checking that the response is something like require(msg.sender == root_address)
 
-    // Забавный факт, когда мы получили ответ тут, это еще не значит что кошелек задеплоен. Это значит что Root
-    // контракт создал исходящее сообщение с деплоем кошелька.
-    // Мы можем получить это сообщение раньше чем кошелек будет задеплоен ( сообщение в пути ).
-    // В принципе гарантии по LT(см. дополнения) нам гарантируют, что если мы отсюда попробуем вызвать
-    // какой то метод кошелька, наш запрос не может дойти раньше чем кошелек
-    // будет задеплоен. Но лучше если вы чтобы прямо отсюда начинать взаимодействовать с кошельком придумаете более
-    // сложные цепочки. Например чтобы ROOT после отправки сообщения деплоя еще дергал какую то responsible функцию
-    // у кошелька, и только после ответа ему, отправлял ответ нам.
-    // (Ориентируясь на гарантии порядкадоставки только для двух контрактов).
-
+    // Fun fact, when we get an answer here, that does not mean
+    // that the wallet is deployed. This means that the Root
+    // contract created an outgoing deploy message.
+    // We can receive this message before the wallet is deployed
+    // (the message is en route).
+    // In principle, the LT (see additional information) guarantees us,
+    // that if we want to call a wallet method from here,
+    // our message will not arrive earlier than the wallet is deployed.
     lastDeployedWallet = _address;
   }
 }
-
