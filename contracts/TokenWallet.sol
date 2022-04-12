@@ -154,7 +154,7 @@ contract TokenWalletContract is ITokenWalletContract {
             root_address: root_address
         },
         pubkey: _wallet_public_key,
-        code: tvm.code()  // код такой же как и у нашего контракта,
+        code: tvm.code()  // The same code as our contract has,
     });
     return address(tvm.hash(stateInit));
   }
@@ -167,7 +167,7 @@ contract TokenWalletContract is ITokenWalletContract {
     tvm.accept();
     uint32 functionId = body.decode(uint32);
     if (functionId == tvm.functionId(ITokenWalletContract.internalTransfer)) {
-        // Наш трансфер не дошел, возвращаем деньги на баланс.
+        // Our transfer failed. Return tokens on the balance.
         uint128 tokens = body.decode(uint128);
         balance += tokens;
     }
