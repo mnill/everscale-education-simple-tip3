@@ -38,7 +38,7 @@ async function main(client) {
             }, {});
             assert(false, "Never reached")
         } catch (e) {
-            assert(e.data.exit_code === 102, "Call unsuccessful. Necessary to set _deploy_evers to more then 0.1 ton")
+            assert(e.data.local_error.data.exit_code === 102, "Call unsuccessful. Necessary to set _deploy_evers to more then 0.1 ton")
         }
 
         try {
@@ -49,7 +49,7 @@ async function main(client) {
             });
             assert(false, "Never reached")
         } catch (e) {
-            assert(e.data.exit_code === 103, "Call unsuccessful. Necessary to fulfill balance to pass address(this).balance > start_gas_balance + _deploy_evers check")
+            assert(e.data.local_error.data.exit_code === 103, "Call unsuccessful. Necessary to fulfill balance to pass address(this).balance > start_gas_balance + _deploy_evers check")
         }
 
         await giver.sendTo(rootAddress, 10_000_000_000);
